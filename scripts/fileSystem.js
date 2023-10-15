@@ -18,15 +18,10 @@ sumNumbersInFile();
 
 async function sumNumbersInFile() {
 	let sum = 0;
-	const fileContent = await readFile('./data/input1.txt', 'utf-8');
-	console.log(fileContent);
-	const contentJSON = await JSON.parse(fileContent);
-	console.log(contentJSON);
-	for (const number of contentJSON) {
+	const fileContent = await JSON.parse(await readFile('./data/input1.txt', 'utf-8'));
+	for (const number of fileContent) {
 		sum += number;
 	}
-	console.log(sum);
-
 	await writeFile('./data/sum.txt', String(sum));
 }
 
