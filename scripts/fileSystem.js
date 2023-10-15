@@ -1,4 +1,5 @@
-const { readFile, writeFile, access, mkdir, appendFile, readdir } = require('fs').promises;
+const { readFile, writeFile, access, mkdir, appendFile, readdir, stat } = require('fs').promises;
+const { W_OK } = require('fs').constants;
 
 
 
@@ -8,12 +9,37 @@ const FILE_NAME = './data/hello.txt';
 // appendMultiplyReadout();
 // appendMultiplyReadoutCallback();
 // readFilesAndDirectories();
-readFilesInDirectories();
+// readFilesInDirectories();
+// readFilesStatsInDirectories();
+// checkFileExist();
+
+sumNumbersInFile();
 
 
+async function sumNumbersInFile() {
+	let sum = 0;
+	const fileContent = await readFile('./data/input1.txt', 'utf-8');
+	console.log(fileContent);
+	const contentJSON = await JSON.parse(fileContent);
+	console.log(contentJSON);
+	for (const number of contentJSON) {
+		sum += number;
+	}
+	console.log(sum);
 
+	await writeFile('./data/sum.txt', String(sum));
+}
 
-async function readFilesInDirectories(){
+async function checkFileExist() {
+	try {
+		const file = await access('./data/hello.txt', W_OK);
+		console.log(file);
+	} catch (error) {
+		console.log('File is not valid!', error);
+	}
+}
+
+async function readFilesStatsInDirectories() {
 
 	const files = await readdir('./data');
 	console.log(files);
@@ -21,12 +47,25 @@ async function readFilesInDirectories(){
 	for (const file of files) {
 		console.log(file);
 
-		const fileContent = await readFile(`./data/${file}`,'utf-8');
-		console.log(fileContent); 
+		const fileContent = await stat(`./data/${file}`, 'utf-8');
+		console.log(fileContent);
 	}
 }
 
-async function readFilesAndDirectories(){
+async function readFilesInDirectories() {
+
+	const files = await readdir('./data');
+	console.log(files);
+
+	for (const file of files) {
+		console.log(file);
+
+		const fileContent = await readFile(`./data/${file}`, 'utf-8');
+		console.log(fileContent);
+	}
+}
+
+async function readFilesAndDirectories() {
 
 	const list = await readdir('.');
 	console.log(list);
