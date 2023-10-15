@@ -1,3 +1,5 @@
+const { error } = require('console');
+
 const { readFile, writeFile, access, mkdir, appendFile, readdir, stat } = require('fs').promises;
 const { W_OK } = require('fs').constants;
 
@@ -22,7 +24,11 @@ async function sumNumbersInFile() {
 	for (const number of fileContent) {
 		sum += number;
 	}
-	await writeFile('./data/sum.txt', String(sum));
+	try {
+		await writeFile('./data/sum.txt', String(sum));
+	} catch (error) {
+		console.log(error);
+	}
 }
 
 async function checkFileExist() {
@@ -33,6 +39,8 @@ async function checkFileExist() {
 		console.log('File is not valid!', error);
 	}
 }
+
+
 
 async function readFilesStatsInDirectories() {
 
