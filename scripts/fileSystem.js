@@ -1,17 +1,36 @@
-const { readFile, writeFile, access, mkdir, appendFile } = require('fs');
-// (async () => {
+const { readFile, writeFile, access, mkdir, appendFile, readdir } = require('fs').promises;
 
-// 	const data = await readFile('./index.js',{
-// 		encoding: 'utf-8',
-// 	});
-// 	console.log(data);
 
-// })();
+
 const FILE_NAME = './data/hello.txt';
 
 // readMultiplyReadout();
 // appendMultiplyReadout();
-appendMultiplyReadoutCallback();
+// appendMultiplyReadoutCallback();
+// readFilesAndDirectories();
+readFilesInDirectories();
+
+
+
+
+async function readFilesInDirectories(){
+
+	const files = await readdir('./data');
+	console.log(files);
+
+	for (const file of files) {
+		console.log(file);
+
+		const fileContent = await readFile(`./data/${file}`,'utf-8');
+		console.log(fileContent); 
+	}
+}
+
+async function readFilesAndDirectories(){
+
+	const list = await readdir('.');
+	console.log(list);
+}
 
 function appendMultiplyReadoutCallback() {
 	readFile(FILE_NAME, 'utf8', (error, data) => {
@@ -28,7 +47,6 @@ function appendMultiplyReadoutCallback() {
 			})
 		}
 	});
-
 }
 
 function appendMultiplyReadout() {
@@ -59,7 +77,7 @@ function readMultiplyReadout() {
 	})();
 }
 
-function rf1() {
+function readFileHelloWorld() {
 
 	mkdir('./data/', err => {
 		if (err) {
