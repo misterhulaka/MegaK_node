@@ -26,6 +26,7 @@ async function sumNumbersInFile() {
 	}
 	try {
 		await writeFile('./data/sum.txt', String(sum));
+		console.log('File saved successfully!');
 	} catch (error) {
 		console.log(error);
 	}
