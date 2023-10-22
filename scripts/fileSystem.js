@@ -1,6 +1,4 @@
-const { error } = require('console');
-
-const { readFile, writeFile, access, mkdir, appendFile, readdir, stat } = require('fs').promises;
+const { rename, readFile, writeFile, access, mkdir, appendFile, readdir, stat } = require('fs').promises;
 const { W_OK } = require('fs').constants;
 
 
@@ -15,8 +13,29 @@ const FILE_NAME = './data/hello.txt';
 // readFilesStatsInDirectories();
 // checkFileExist();
 
-sumNumbersInFile();
+// sumNumbersInFile();
 
+// makeDirectory();
+
+changeFileName();
+
+async function changeFileName() {
+	try {
+		await rename('./filesystem/test/asdasd.txt', './filesystem/test/renamed.txt');
+	} catch (error) {
+		if (error.code === 'ENOENT') {
+			console.log('Given filename does not exist')
+		} else{
+			console.log('Oh no!');
+		}
+	}
+}
+
+async function makeDirectory() {
+	await mkdir('./filesystem/test', {
+		recursive: true,
+	});
+}
 
 async function sumNumbersInFile() {
 	let sum = 0;
