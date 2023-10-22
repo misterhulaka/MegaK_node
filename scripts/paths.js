@@ -41,10 +41,10 @@ function unsafeJoin(base, target) {
 }
 
 function safeJoin(base, target) {
-/**
- * ../../../Windows
- * returns path to target in base
- */
+	/**
+	 * ../../../Windows
+	 * returns path to target in base
+	 */
 	const targetPath = '.' + normalize('/' + target);
 	return resolve(base, targetPath);
 }
