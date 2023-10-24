@@ -1,44 +1,15 @@
-const { log } = require('console');
-const { readFile } = require('fs');
-const { promisify } = require('util');
-const {lookup} = require('dns');
+const fetch = require('node-fetch');
 
-console.log('Hello');
-// getFile();
+fetch('https://danepubliczne.imgw.pl/api/data/synop/')
+	.then(response => {
+		console.log('Answer:');
+		console.dir(response);
+		console.log('Answer content:');
+		console.log(response.json())
+	})
+	.then(html => console.log(html))
+	.catch(error => console.log('Error', error));
 
-// const readFilePromised = promisify(readFile);
-function getFile(file) {
-	(async () => {
-		try {
-			const data = await promisify(readFile)('./index.js', 'utf-8');
-			console.log(data);
-		} catch (err) {
-			console.log('Oh no!', err);
-		}
-	})();
-}
-
-lookup('google.com', (err, address) => {
-	console.log(address);
-});
-
-
-//Promised fs
-// readFilePromised('./index.js','utf-8')
-// 	.then(data => {
-// 		console.log(data);
-// 	})
-// 	.catch(err => {
-// 		console.log('Oh no!', err);
-// 	});
-
-//Regular fs
-// readFile('./index.js','utf-8',(err,data) => {
-// 	if (err === null) {
-// 		console.log(data);
-// 	} else {
-// 		console.log('Oh no!', err);
-// 	}
-// });
-
-console.log('Program has finished!');
+// fetch('https://github.com/')
+//     .then(res => res.text())
+//     .then(body => console.log(body));

@@ -31,4 +31,44 @@ function monitDir(dir) {
 	}
 }
 
+// https://replit.com/@git-asia/watchFile#index.js
+/**
+ * 
+ * 
+ * 
+ * 
+ *
+ *const { normalize, join} = require('path');
+ *const chokidar = require('chokidar');
+ *const { readFile } = require ('fs').promises;
+ *
+ *const jsExt = '';
+ *const watchPath = normalize(join(process.argv[2], jsExt));
+ *
+ * //Shell command:
+ * // node index.js /home/runner/watchFile/
+ *
+ * // ANSI escape sequence for colors
+ * const greenColor = '\x1b[32m';
+ * const orangeColor = '\x1b[33m';
+ * const redColor = '\x1b[31m';
+ * const resetColor = '\x1b[0m';
+ *
+ * const watcher = chokidar.watch(watchPath, {
+ *	ignoreInitial: true,
+ *	awaitWriteFinish: true,
+ * })
+ * 
+ * const handleFileChange = async(path, color) => {
+ * 	console.log(`${color}File ${path} has been ${color === greenColor ? 'added' : 'changed'}${resetColor} \n`);
+ * 	const fileContents = await readFile(path, 'utf8');
+ * 	console.log(fileContents)
+ * };
+ * watcher
+ * .on('add', (path) => handleFileChange(path, greenColor))
+ * .on('change', (path) => handleFileChange(path, orangeColor))
+ * .on('unlink', (path) => console.log(`${redColor}File ${path} has been removed${resetColor} \n`))
+ * .on('error', (error) => console.error(`Watcher error ${error} \n`))
+ */
+
 
