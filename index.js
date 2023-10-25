@@ -13,8 +13,7 @@ const processWeatherData = async (data, cityName) => {
 	const foundData = data.find(stationData => stationData.stacja === cityName);
 
 	if (!foundData) {
-		console.log(`-> ${cityName} <- not found in API`);
-		return;
+		throw new Error(`-> ${cityName} <- not found in API`);
 	}
 
 	const {
@@ -23,13 +22,13 @@ const processWeatherData = async (data, cityName) => {
 		temperatura: temperature,
 	} = foundData;
 
-	const weatherInfo = `-> In ${cityName} there is ${temperature}°C, ${humidity}% of humidity and pressure of ${pressure} hPa `
+	const weatherInfo = `-> In ${cityName} there is ${temperature}°C, ${humidity}% of humidity and pressure of ${pressure} hPa `;
 	console.log(weatherInfo);
 
 	const dateTimeString = new Date().toLocaleString();
 
 	await appendFile(getDataFileName(cityName), `${dateTimeString}\n${weatherInfo}\n`);
-};
+}
 
 const checkCityWeather = async cityName => {
 	try {
