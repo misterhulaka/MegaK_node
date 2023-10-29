@@ -10,10 +10,10 @@ const message2 = ['T', 'e', 's', 't'];
 
 if (process.argv[2] === 'encryptMessage') {
 	console.log({
-		function: process.argv[2], 
-		message: process.argv[3], 
-		alphabet: process.argv[4],
-		cipher: process.argv[5]
+		2: process.argv[2],
+		3: process.argv[3],
+		4: process.argv[4],
+		5: process.argv[5]
 	});
 	encryptMessage(process.argv[3], process.argv[4], process.argv[5])
 }
@@ -38,21 +38,22 @@ function checkCipherLenght(alphabet, cipher) {
 	}
 }
 
-function hashCipher(alphabet,hashNumber){
+function hashCipher(alphabet, hashNumber) {
 	let indexHash = Number(hashNumber);
 	const charArr = alphabet.toUpperCase().trim().split('');
-	let first = charArr.slice(0,indexHash);
+	let first = charArr.slice(0, indexHash);
 	let second = charArr.slice(indexHash);
-	let hashedArr = second.concat(first,' ');
+	let hashedArr = second.concat(first, ' ').join('');
 
-	console.log(first);
-	console.log(second);
-	console.log(hashedArr);
+	// console.log(first);
+	// console.log(second);
+	// console.log(hashedArr);
 	return hashedArr;
 }
 
-function encryptMessage(message, alphabet, cipher) {
+function encryptMessage(message, alphabet, cipherNum) {
 	let cipherArr = '';
+	let cipher = hashCipher(alphabet, cipherNum);
 	const charArr = message.toUpperCase().split('');
 	if (checkCipherLenght(alphabet, cipher) === true) {
 		charArr.forEach(element => {
@@ -69,8 +70,9 @@ function encryptMessage(message, alphabet, cipher) {
 	return cipherArr;
 };
 
-function dencryptMessage(encryptedMessage, alphabet, cipher) {
+function dencryptMessage(encryptedMessage, alphabet, cipherNum) {
 	let cipherArr = '';
+	let cipher = hashCipher(alphabet, cipherNum);
 	const charArr = encryptedMessage.toUpperCase().split('');
 	if (checkCipherLenght(alphabet, cipher) === true) {
 		charArr.forEach(element => {
