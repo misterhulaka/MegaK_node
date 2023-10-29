@@ -1,8 +1,8 @@
 const { log } = require('console');
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
-function testPingIIFE() {
 
+function testPingIIFE() {
 	(async () => {
 		try {
 			const { stdout } = await exec('ping 8.8.hjghj8.8');
@@ -11,7 +11,6 @@ function testPingIIFE() {
 			console.log(error.stdout);
 		}
 	}
-
 	)();
 }
 
@@ -33,4 +32,15 @@ function exeComm(command) {
 	});
 }
 
-exeCommand(process.argv[2]);
+// exeCommand(process.argv[2]);
+
+(async () => {
+	try {
+		const { stdout } = await exec('mspaint.exe');
+		console.log(stdout);
+	} catch (error) {
+		console.error('Error occured:', error);
+	}
+})();
+
+
