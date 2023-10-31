@@ -42,17 +42,3 @@ const checkCityWeather = async cityName => {
 }
 
 checkCityWeather(process.argv[2]);
-
-
-// fetch('https://danepubliczne.imgw.pl/api/data/synop/')
-// .then(response => {
-// 	console.log('Answer ->', response);
-// 	return response.json();
-// })
-// // .then(response => response.json())
-// .then(data => console.log(data))
-// .catch(error => console.log('Error', error));
-
-// fetch('https://github.com/')
-//     .then(res => res.text())
-//     .then(body => console.log(body));
