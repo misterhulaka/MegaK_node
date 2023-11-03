@@ -2,9 +2,11 @@
 // const { promisify } = require('util');
 const { readFile, writeFile } = require('fs').promises;
 const { encryptText, decryptText } = require('../cipherAES192');
+const {createHmac} = require('crypto')
 const {SALT} = require('../../data/constants');
 
 // const SALT = 'djfnisjdnfojdsnofnsdognosnfoieonfosdofnsdpgspgmpsmgpsdpgmpsdmgpmpdgmpslmgpmspgmpsm';
+
 const [, , methodName, fileName, pwd] = process.argv;
 
 console.log({ methodName, fileName, pwd });
