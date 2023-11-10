@@ -1,21 +1,29 @@
+const { promisify } = require('util');
 const { createReadStream, createWriteStream } = require('fs');
 const { pipeline } = require('stream').promises;
 const { createGzip, createGunzip } = require('zlib');
+const { createCipher, createDecipher } = require('crypto');
+const scrypt = promisify(require('crypto').scrypt);
+
+
+const { HASH_SALT, ENCRYPTION_SALT } = require('../../data/constants');
 
 //stream.promises.pipline()
 
-const [, , methodName, file, path] = process.argv;
+const [, , methodName, file, path, password] = process.argv;
 
-console.log({ methodName, file, path });
+console.log({ methodName, file, path, password });
 
 switch (methodName) {
 	case undefined:
 		console.log('Choose method name:\n',
-		'> streamCopyCompressFile file path\n',
-		'> streamCopyDecompressFile file path\n',
-		'> streamCopyFile file path\n',
-		'> streamPipeCopyFile file path\n',
-		'> streamManualCopyFile file path\n');
+			'> streamCopyCompressFile file path\n',
+			'> streamCopyDecompressFile file path\n',
+			'> streamCopyFile file path\n',
+			'> streamPipeCopyFile file path\n',
+			'> streamManualCopyFile file path\n',
+			'> streamEncryptFile file path password\n',
+			'> streamDecryptFile file path password');
 		break;
 	case 'streamCopyFile':
 		streamCopyFile(file, path);
@@ -32,32 +40,45 @@ switch (methodName) {
 	case 'streamManualCopyFile':
 		streamManualCopyFile(file, path);
 		break;
+	case 'streamEncryptFile':
+		streamEncryptFile(file, path, password);
+		break;
+	case 'streamDecryptFile':
+		streamDecryptFile(file, path, password);
+		break;
 	default:
 		break;
 }
 
-// if (methodName === undefined) {
-// 	console.log('Choose method name:\n',
-// 		'> streamCopyFile file path\n',
-// 		'> streamPipeCopyFile file path\n',
-// 		'> streamManualCopyFile file path\n');
-// 	return;
-// }
-// if (methodName === 'streamCopyFile') {
-// 	streamCopyFile(file, path);
-// }
-// if (methodName === 'streamCopyCompressFile') {
-// 	streamCopyCompressFile(file, path);
-// }
-// if (methodName === 'streamCopyDecompressFile') {
-// 	streamCopyDecompressFile(file, path);
-// }
-// if (methodName === 'streamPipeCopyFile') {
-// 	streamPipeCopyFile(file, path);
-// }
-// if (methodName === 'streamManualCopyFile') {
-// 	streamManualCopyFile(file, path);
-// }
+async function streamEncryptFile(targetFile, targetPath, pwd) {
+	console.time('encrypt file time');
+
+	const algorithm = 'aes-192-cbc';
+	const key = await scrypt(pwd, ENCRYPTION_SALT, 24);
+
+	await pipeline(
+		createReadStream(targetFile),
+		createCipher(algorithm, key),
+		createWriteStream(targetPath)
+	);
+	console.log('Encryption done.');
+	console.timeEnd('encrypt file time');
+}
+
+async function streamDecryptFile(targetFile, targetPath, pwd) {
+	console.time('decrypt file time');
+
+	const algorithm = 'aes-192-cbc';
+	const key = await scrypt(pwd, ENCRYPTION_SALT, 24);
+
+	await pipeline(
+		createReadStream(targetFile),
+		createDecipher(algorithm, key),
+		createWriteStream(targetPath)
+	);
+	console.log('Decryption done.');
+	console.timeEnd('decrypt file time');
+}
 
 async function streamCopyFile(targetFile, targetPath) {
 	console.time('streamFile');

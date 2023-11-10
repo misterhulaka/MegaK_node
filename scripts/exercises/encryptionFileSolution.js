@@ -77,3 +77,8 @@ async function decryptBin(fileName, pwd) {
 	// 	console.error("> FILE IS NOT ORIGINAL <");
 	// }
 }
+
+module.exports ={
+	encryptFile,
+	decryptFile
+};
