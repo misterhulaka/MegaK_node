@@ -4,11 +4,11 @@ class TickTock extends EventEmitter {
 	constructor(){
 		super();
 
-		etInterval(() => {
+		setInterval(() => {
 			this.emit('1sElapsed', 'Test');
 		}, 1000);
 
-		etInterval(() => {
+		setInterval(() => {
 			this.emit('5sElapsed', 'Test');
 		}, 5000);
 	

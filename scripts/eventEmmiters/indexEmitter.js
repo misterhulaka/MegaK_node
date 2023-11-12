@@ -1,7 +1,6 @@
-const {tickTock} = require('./eventEmitter');
+const { TickTock } = require('./eventEmitter');
 
-const events = tickTock();
-
-events.on('secondElapsed', (data) => {
-	console.log('Hi', data);
-});
+new TickTock()
+	.on('1sElapsed', (data) => {
+		console.log('Hi', data);
+	});
