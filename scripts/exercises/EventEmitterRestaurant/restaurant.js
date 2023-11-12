@@ -14,12 +14,10 @@ class Restaurant extends EventEmitter {
 	
 	close(){
 		this.emit('close');
-		
 	}
 	
 	reserveTable(){
 		this.emit('reserveTable');
-		
 	}
 
 	cancelTableResevation(){
@@ -32,12 +30,10 @@ class Restaurant extends EventEmitter {
 	
 	markTableBroken(){
 		this.emit('markTableBroken');
-		
 	}
 	
 	cleanupTable(){
 		this.emit('cleanupTable');
-
 	}
 }
 

@@ -5,32 +5,25 @@ let tableCount = 25;
 
 console.log(megaRestaurant);
 
+const decTableCount = () => {
+	tableCount--;
+	console.log(`Dostępnych stolików: ${tableCount}`);
+}
+const incTableCount = () => {
+	tableCount++;
+	console.log(`Dostępnych stolików: ${tableCount}`);
+}
+
 megaRestaurant
 	.on('open', () => console.log('Otwarto restauracje'))
 	.on('close', () => console.log('Zamknięto restaurację'))
-	.on('reserveTable', () => {
-		tableCount--;
-		console.log(`Dostępnych stolików: ${tableCount}`);
-	})
-	.on('cancelTableResevation', () => {
-		tableCount++;
-		console.log(`Dostępnych stolików: ${tableCount}`);
-	})
-	.on('takeTableWithoutReservation', () => {
-		tableCount--;
-		console.log(`Dostępnych stolików: ${tableCount}`);
-	})
-	.on('markTableBroken', () => {
-		tableCount--;
-		console.log(`Dostępnych stolików: ${tableCount}`);
-	})
-	.on('cleanupTable', () => {
-		tableCount++;
-		console.log(`Dostępnych stolików: ${tableCount}`);
-	})
+	.on('reserveTable', decTableCount)
+	.on('cancelTableResevation', incTableCount)
+	.on('takeTableWithoutReservation', decTableCount)
+	.on('markTableBroken', decTableCount)
+	.on('cleanupTable', incTableCount)
 
 megaRestaurant.open();
-
 megaRestaurant.takeTableWithoutReservation();
 megaRestaurant.takeTableWithoutReservation();
 megaRestaurant.reserveTable();
