@@ -17,11 +17,8 @@ const incTableCount = () => {
 megaRestaurant
 	.on('open', () => console.log('Otwarto restauracje'))
 	.on('close', () => console.log('Zamknięto restaurację'))
-	.on('reserveTable', decTableCount)
-	.on('cancelTableResevation', incTableCount)
-	.on('takeTableWithoutReservation', decTableCount)
-	.on('markTableBroken', decTableCount)
-	.on('cleanupTable', incTableCount);
+	.on('decTable', decTableCount)
+	.on('incTable', incTableCount);
 
 megaRestaurant.open();
 megaRestaurant.takeTableWithoutReservation();

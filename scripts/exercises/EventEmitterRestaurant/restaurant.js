@@ -6,8 +6,6 @@ class Restaurant extends EventEmitter {
 		super();
 	}
 
-
-
 	open(){
 		this.emit('open');
 	}
@@ -17,23 +15,23 @@ class Restaurant extends EventEmitter {
 	}
 	
 	reserveTable(){
-		this.emit('reserveTable');
+		this.emit('decTable');
 	}
 
 	cancelTableResevation(){
-		this.emit('cancelTableResevation');
+		this.emit('incTable');
 	}
 
 	takeTableWithoutReservation(){
-		this.emit('takeTableWithoutReservation');
+		this.emit('decTable');
 	}
 	
 	markTableBroken(){
-		this.emit('markTableBroken');
+		this.emit('decTable');
 	}
 	
 	cleanupTable(){
-		this.emit('cleanupTable');
+		this.emit('incTable');
 	}
 }
 
