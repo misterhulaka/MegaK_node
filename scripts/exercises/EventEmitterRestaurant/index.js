@@ -6,29 +6,47 @@ let tableCount = 25;
 console.log(megaRestaurant);
 
 megaRestaurant
-	.on('RestaurnatOpen', (prompt) => {
-		console.log(prompt);
-	})
-	.on('takeTable', () => {
+	.on('open', () => console.log('Otwarto restauracje'))
+	.on('close', () => console.log('Zamknięto restaurację'))
+	.on('reserveTable', () => {
 		tableCount--;
+		console.log(`Dostępnych stolików: ${tableCount}`);
 	})
-	.on('cancelReservation', (prompt)=>{
+	.on('cancelTableResevation', () => {
 		tableCount++;
-		console.log(prompt, tableCount);
+		console.log(`Dostępnych stolików: ${tableCount}`);
 	})
-	
-	megaRestaurant.open();
+	.on('takeTableWithoutReservation', () => {
+		tableCount--;
+		console.log(`Dostępnych stolików: ${tableCount}`);
+	})
+	.on('markTableBroken', () => {
+		tableCount--;
+		console.log(`Dostępnych stolików: ${tableCount}`);
+	})
+	.on('cleanupTable', () => {
+		tableCount++;
+		console.log(`Dostępnych stolików: ${tableCount}`);
+	})
 
-	megaRestaurant.takeTableWithoutReservation();
-	megaRestaurant.takeTableWithoutReservation();
+megaRestaurant.open();
 
-	megaRestaurant.cancelTableResevation();
-	
+megaRestaurant.takeTableWithoutReservation();
+megaRestaurant.takeTableWithoutReservation();
+megaRestaurant.reserveTable();
+megaRestaurant.cancelTableResevation();
+megaRestaurant.reserveTable();
+megaRestaurant.reserveTable();
+megaRestaurant.takeTableWithoutReservation();
+megaRestaurant.takeTableWithoutReservation();
+megaRestaurant.cleanupTable();
+megaRestaurant.close();
 
 
-	/* 
-	new TickTock()
-		.on('1sElapsed', (data) => {
-			console.log('Hi', data);
-		}); 
+
+/*
+new TickTock()
+	.on('1sElapsed', (data) => {
+		console.log('Hi', data);
+	}); 
 */

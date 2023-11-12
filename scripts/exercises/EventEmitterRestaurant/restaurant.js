@@ -1,9 +1,5 @@
 const {EventEmitter} = require('events');
 
-function availableTable(tableNumber){
-	console.log(`Available table number is ${tableNumber}`);
-}
-
 class Restaurant extends EventEmitter {
 	
 	constructor(){
@@ -13,30 +9,34 @@ class Restaurant extends EventEmitter {
 
 
 	open(){
-		this.emit('RestaurnatOpen', availableTable());
+		this.emit('open');
 	}
-
+	
 	close(){
-
+		this.emit('close');
+		
 	}
-
+	
 	reserveTable(){
-
+		this.emit('reserveTable');
+		
 	}
 
 	cancelTableResevation(){
-		this.emit('cancelReservation', 'Reservation canceled')
+		this.emit('cancelTableResevation');
 	}
 
 	takeTableWithoutReservation(){
-		this.emit('takeTable', availableTable())
+		this.emit('takeTableWithoutReservation');
 	}
-
+	
 	markTableBroken(){
-
+		this.emit('markTableBroken');
+		
 	}
-
+	
 	cleanupTable(){
+		this.emit('cleanupTable');
 
 	}
 }
