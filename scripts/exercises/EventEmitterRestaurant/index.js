@@ -3,22 +3,15 @@ const { Restaurant } = require('./restaurant');
 const megaRestaurant = new Restaurant();
 let tableCount = 25;
 
-console.log(megaRestaurant);
-
-const decTableCount = () => {
-	tableCount--;
-	console.log(`Dostępnych stolików: ${tableCount}`);
-}
-const incTableCount = () => {
-	tableCount++;
+const tableCountChange = (change) => {
+	tableCount += change;
 	console.log(`Dostępnych stolików: ${tableCount}`);
 }
 
 megaRestaurant
 	.on('open', () => console.log('Otwarto restauracje'))
 	.on('close', () => console.log('Zamknięto restaurację'))
-	.on('decTable', decTableCount)
-	.on('incTable', incTableCount);
+	.on('tableCountChange', tableCountChange);
 
 megaRestaurant.open();
 megaRestaurant.takeTableWithoutReservation();
@@ -31,12 +24,3 @@ megaRestaurant.takeTableWithoutReservation();
 megaRestaurant.takeTableWithoutReservation();
 megaRestaurant.cleanupTable();
 megaRestaurant.close();
-
-
-
-/*
-new TickTock()
-	.on('1sElapsed', (data) => {
-		console.log('Hi', data);
-	}); 
-*/

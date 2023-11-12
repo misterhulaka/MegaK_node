@@ -15,23 +15,23 @@ class Restaurant extends EventEmitter {
 	}
 	
 	reserveTable(){
-		this.emit('decTable');
+		this.emit('tableCountChange', -1);
 	}
 
 	cancelTableResevation(){
-		this.emit('incTable');
+		this.emit('tableCountChange', 1);
 	}
 
 	takeTableWithoutReservation(){
-		this.emit('decTable');
+		this.emit('tableCountChange', -1);
 	}
 	
 	markTableBroken(){
-		this.emit('decTable');
+		this.emit('tableCountChange', -1);
 	}
 	
 	cleanupTable(){
-		this.emit('incTable');
+		this.emit('tableCountChange', 1);
 	}
 }
 
