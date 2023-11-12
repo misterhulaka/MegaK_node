@@ -1,13 +1,25 @@
+const { count } = require('console');
 const { createServer } = require('http');
 const { readFile } = require('fs').promises;
+const { calc } = require('./calc');
 
 const server = createServer();
+// const counter = 0;
+let counter = 0;
 
 server.on('request', async (req, res) => {
-	console.log(req.url);
-	if (req.url === '/' && req.method === 'GET') {
+	// console.log(req.url);
 
-		console.log(req.headers);
+	const [, operation, numA, numB] = req.url.split('/');
+
+	console.log({ operation, numA, numB });
+
+	const result = calc(operation, Number(numA), Number(numB));
+
+	// if (req.url === '/' && req.method === 'GET') {
+
+		// console.log(req.headers);
+
 
 		const html = await readFile('./index.html', 'utf8');
 
@@ -15,14 +27,9 @@ server.on('request', async (req, res) => {
 			'Content-type': 'text/html',
 			'X-My-Header': 'Hello',
 		});
-		res.end(html);
-	} else {
-		console.log(req.url);
-		res.writeHead(404, {
-			'Content-type': 'text/html',
-		});
-		res.end('<h1>Not found.</h1>');
-	}
+		res.write(html);
+		res.write(`Wynik: ${result}`);
+		res.end();
 })
 
 server.listen(3000, 'localhost');
