@@ -21,7 +21,7 @@ megaRestaurant
 	.on('cancelTableResevation', incTableCount)
 	.on('takeTableWithoutReservation', decTableCount)
 	.on('markTableBroken', decTableCount)
-	.on('cleanupTable', incTableCount)
+	.on('cleanupTable', incTableCount);
 
 megaRestaurant.open();
 megaRestaurant.takeTableWithoutReservation();
